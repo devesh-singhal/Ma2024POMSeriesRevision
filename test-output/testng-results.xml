@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-05-06T18:40:53 IST" name="OpenCart Regression Suite" finished-at="2026-05-06T18:40:58 IST" duration-ms="4786">
+    <groups>
+    </groups>
+    <test started-at="2026-05-06T18:40:53 IST" name="Login Page Test" finished-at="2026-05-06T18:40:58 IST" duration-ms="4786">
+      <class name="com.qa.opencart.tests.LoginPageTest">
+        <test-method is-config="true" signature="setUp(java.lang.String)[pri:0, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:53 IST" name="setUp" finished-at="2026-05-06T18:40:56 IST" duration-ms="3398" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="forgotPwdLinkExistTest()[pri:0, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:56 IST" name="forgotPwdLinkExistTest" finished-at="2026-05-06T18:40:56 IST" duration-ms="106" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- forgotPwdLinkExistTest -->
+        <test-method signature="loginPageTitleTest()[pri:0, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:57 IST" name="loginPageTitleTest" finished-at="2026-05-06T18:40:57 IST" duration-ms="24" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginPageTitleTest -->
+        <test-method signature="loginPageURLTest()[pri:0, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:57 IST" name="loginPageURLTest" finished-at="2026-05-06T18:40:57 IST" duration-ms="20" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginPageURLTest -->
+        <test-method signature="logoExiststTest()[pri:0, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:57 IST" name="logoExiststTest" finished-at="2026-05-06T18:40:57 IST" duration-ms="26" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- logoExiststTest -->
+        <test-method signature="loginTest()[pri:2147483647, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:57 IST" name="loginTest" finished-at="2026-05-06T18:40:57 IST" duration-ms="845" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.qa.opencart.tests.LoginPageTest@2c991465]" started-at="2026-05-06T18:40:57 IST" name="tearDown" finished-at="2026-05-06T18:40:58 IST" duration-ms="166" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.qa.opencart.tests.LoginPageTest -->
+    </test> <!-- Login Page Test -->
+  </suite> <!-- OpenCart Regression Suite -->
+</testng-results>
