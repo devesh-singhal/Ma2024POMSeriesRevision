@@ -51,7 +51,7 @@ pipeline
         stage('Regression API Automation Tests on QA') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    git 'https://github.com/devesh-singhal/Jan2025RestAssuredAPIFramework'
+                    git 'https://github.com/devesh-singhal/Ma2024POMSeriesRevision.git'
                     bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml -Denv=qa"
                     
                 }
