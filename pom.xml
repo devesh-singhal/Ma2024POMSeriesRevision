@@ -110,8 +110,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.5</version>
 				<configuration>
-				    <skip>true</skip>
-					<forkCount>2</forkCount>
+				  <forkCount>2</forkCount>
 					<reuseForks>false</reuseForks>
 					<suiteXmlFiles>
 						<!--<suiteXmlFile>src/test/resources/testrunners/testng_regression.xml</suiteXmlFile>-->
