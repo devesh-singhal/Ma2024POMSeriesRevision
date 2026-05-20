@@ -8,11 +8,14 @@
   </listeners>
   <test thread-count="4" parallel="tests" name="Login Page Test(failed)" verbose="4">
     <parameter name="browser" value="chrome"/>
+    <parameter name="testname" value="LOGIN PAGE TEST"/>
+    <parameter name="browserversion" value="126.0"/>
     <classes>
       <class name="com.qa.opencart.tests.LoginPageTest">
         <methods>
-          <include name="loginPageTitleTest"/>
+          <include name="loginTest"/>
           <include name="setUp"/>
+          <include name="loginPageURLTest"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- com.qa.opencart.tests.LoginPageTest -->

@@ -3,6 +3,7 @@ package com.qa.opencart.base;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
@@ -18,8 +19,9 @@ import com.qa.opencart.pges.ResultsPage;
 
 public class BaseTest {
 	
+	public static WebDriver driver  ;
 	DriverFactory df ;
-	WebDriver driver;
+	//public static RemoteWebDriver driver;
 	protected Properties prop;
 	protected LoginPage loginPage;
 	protected AccountsPage accPage;
@@ -29,18 +31,23 @@ public class BaseTest {
 	protected SoftAssert softAssert;
 	
 	
-	@Parameters({"browser"})
+	@Parameters({"browser", "browserversion", "testname"})
 	@BeforeTest
-	public void setUp(@Optional("chrome")String browserName) {
+	public void setUp(@Optional String browserName, String browserVersion, String testName) throws Exception {
 		df = new DriverFactory();
 		prop = df.initProp();
 		
 		if (browserName!=null) {
 			prop.setProperty("browser", browserName);
+			prop.setProperty("browserversion", browserVersion);
+			prop.setProperty("testname", testName);
 		}
 		
 	    driver = df.initDriver(prop);
 		loginPage = new LoginPage(driver);
+		accPage = new AccountsPage(driver);
+		registerPage = new RegisterPage(driver);
+		productInfoPage = new ProductInfoPage(driver);
 		softAssert = new SoftAssert();
 		
    }

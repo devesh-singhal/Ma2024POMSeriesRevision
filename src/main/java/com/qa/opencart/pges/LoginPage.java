@@ -10,7 +10,7 @@ import io.qameta.allure.Step;
 
 public class LoginPage {
 	
-	private WebDriver driver;
+	public WebDriver driver;
 	private ElementUtil eleUtil;
 	
 	//1. private by locators::

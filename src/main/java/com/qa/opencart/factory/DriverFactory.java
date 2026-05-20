@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.openqa.selenium.OutputType;
@@ -12,68 +14,110 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.qa.opencart.errors.AppError;
 import com.qa.opencart.exceptions.BrowserException;
 import com.qa.opencart.exceptions.FrameworkException;
-
-import io.qameta.allure.Step;
 
 
 
 public class DriverFactory {
 
-	static WebDriver driver;
-	public Properties prop;
-    public static String isHighlight;
-	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();	
+	WebDriver driver;
+	public static String isHighlight;
+	OptionsManager om;
+	 Properties prop;
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+
 	
-	
-	
-	@Step("INITIALIZING THE DRIVER WITH PROPERTIES : {0}")
 	public WebDriver initDriver(Properties prop) {
+		
 		String browserName = prop.getProperty("browser");
 		System.out.println("browser name is ..."+browserName);
-		isHighlight = prop.getProperty("highlight");
-		OptionsManager om = new OptionsManager(prop);
+
+	
+		 om = new OptionsManager(prop);
 		
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
-			//driver = new ChromeDriver(om.getChromeOptions());
-			tlDriver.set(new ChromeDriver(om.getChromeOptions()));
-		    break;
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteDriver("chrome");
+			}
+
+			else {
+				// run TCS's on local machine / browser
+				tlDriver.set(new ChromeDriver(om.getChromeOptions()));
+			}
+
+			break;
 
 		case "firefox":
-			//driver = new FirefoxDriver(om.getfirefoxChromeOptions());
-			tlDriver.set(new FirefoxDriver(om.getfirefoxChromeOptions()));
-	     	break;
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				// run TC'S on remote machine inside container
+				init_remoteDriver("firefox");
+			}
+
+			else {
+				// run TCS's on local machine / browser
+				driver = new FirefoxDriver(om.getfirefoxChromeOptions());
+			}
+
+			break;
 
 		case "edge":
 			driver = new EdgeDriver();
-	     	break;
-
-		case "safari":
-			driver = new SafariDriver();
-	     	break;
+			break;
 
 		default:
-			System.out.println("please pass the right browsername" +browserName);
-			throw new BrowserException("INVALID BROWSER" + browserName);
-			
+			System.out.println(AppError.INVALID_BROWSER_MESG + browserName);
+			throw new BrowserException(AppError.INVALID_BROWSER_MESG);
+
 		}
-		
+
 		getDriver().manage().window().maximize();
 		getDriver().manage().deleteAllCookies();
 		getDriver().get(prop.getProperty("url"));
+
 		return getDriver();
-		
-}
-	
-	public static WebDriver getDriver() {
-		return tlDriver.get();
-		
+
 	}
+
+	private void init_remoteDriver(String browserName ) throws BrowserException  {
+		System.out.println("Running test cases on grid with browser ...." + browserName);
+
+		switch (browserName.toLowerCase().trim()) {
+		case "chrome":
+			
+			String url = "http://localhost:4444/wd/hub";
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(url), om.getChromeOptions()));
+			} catch (MalformedURLException e) {
+				
+				e.printStackTrace();
+			}
+			break;
+
+		case "firefox":
+			try {
+				driver = new RemoteWebDriver(new URL("huburl"), om.getfirefoxChromeOptions());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			break;
+
+		default:
+			System.out.println("please pass the right remote browser name");
+			throw new BrowserException(AppError.INVALID_BROWSER_MESG);
+		}
+		return;
+
+	}
+		
+		
 	
+	
+
 	public Properties initProp() {
 		prop = new Properties();
 		FileInputStream ip = null;
@@ -120,6 +164,7 @@ public class DriverFactory {
 		return prop;
 	}
 
+	
 	public static String getScreenshot(String methodName) {
 		File srcFile = ((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.FILE);
 		String path = System.getProperty("user.dir") + "/screenshot/" + methodName + "_" + System.currentTimeMillis()+ ".png";
@@ -135,6 +180,11 @@ public class DriverFactory {
 		
 		
 	}
+
+	public static WebDriver getDriver() {
+		return tlDriver.get();
+	}
+
 	
 	
 	
