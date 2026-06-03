@@ -21,7 +21,6 @@ import com.qa.opencart.exceptions.BrowserException;
 import com.qa.opencart.exceptions.FrameworkException;
 
 
-
 public class DriverFactory {
 
 	WebDriver driver;
@@ -32,17 +31,15 @@ public class DriverFactory {
 
 	
 	public WebDriver initDriver(Properties prop) {
-		
 		String browserName = prop.getProperty("browser");
 		System.out.println("browser name is ..."+browserName);
 
-	
-		 om = new OptionsManager(prop);
+      om = new OptionsManager(prop);
 		
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
 			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
-				init_remoteDriver("chrome");
+				init_remoteDriver(browserName);
 			}
 
 			else {
@@ -89,18 +86,20 @@ public class DriverFactory {
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
 			
-			String url = "http://localhost:4444/wd/hub";
+			
 			try {
-				tlDriver.set(new RemoteWebDriver(new URL(url), om.getChromeOptions()));
+				//String huburl = "http://13.206.243.95/:4444/wd/hub";
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), om.getChromeOptions()));
 			} catch (MalformedURLException e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
 
 		case "firefox":
 			try {
-				driver = new RemoteWebDriver(new URL("huburl"), om.getfirefoxChromeOptions());
+				//String huburl = "http://13.206.243.95/:4444/wd/hub";
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), om.getfirefoxChromeOptions()));
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -114,6 +113,10 @@ public class DriverFactory {
 
 	}
 		
+	public static WebDriver getDriver() {
+		return tlDriver.get();
+	}
+
 		
 	
 	
@@ -181,10 +184,7 @@ public class DriverFactory {
 		
 	}
 
-	public static WebDriver getDriver() {
-		return tlDriver.get();
-	}
-
+	
 	
 	
 	

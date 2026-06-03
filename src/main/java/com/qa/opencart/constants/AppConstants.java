@@ -5,7 +5,7 @@ import java.util.List;
 public class AppConstants {
 
 	
-	public static final int DEFAULT_SHORT_TIME_OUT = 5;
+	public static final int DEFAULT_SHORT_TIME_OUT = 10;
 	public static final int DEFAULT_MEDIUM_TIME_OUT = 15;
 	public static final int DEFAULT_LONG_TIME_OUT = 20;
 	
@@ -20,7 +20,7 @@ public static final List<String> EXPECTED_ACCOUNTSPAGE_HEADERS_LIST = List.of("M
 public static final String USER_REGISTER_SUCCESS_MESSAGE = "Your Account Has Been Created!" ;
 	
 
-//***************Exce sheet data********************
+//***************Excel sheet data********************
 
 public static final String REG_SHEET_NAME = "register";
 }
