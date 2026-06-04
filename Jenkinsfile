@@ -3,8 +3,7 @@ pipeline
     agent any
     
     tools{
-        maven 'maven'
-        jdk 'jdk-17' // Matches the name configured in Jenkins Tools
+       jdk 'jdk-17' // Matches the name configured in Jenkins Tools
         }
 
     stages 
